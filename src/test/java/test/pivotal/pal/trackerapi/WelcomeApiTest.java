@@ -1,6 +1,6 @@
 package test.pivotal.pal.trackerapi;
 
-import io.pivotal.pal.tracker.PalTrackerApplication;
+import io.pivotal.pal.k8s.PalK8sApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SpringBootTest(classes = PalTrackerApplication.class, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = PalK8sApplication.class, webEnvironment = RANDOM_PORT)
 public class WelcomeApiTest {
 
     @Autowired
