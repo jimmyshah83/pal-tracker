@@ -1,0 +1,17 @@
+#Ingress controller Installation: https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: pal-tracker
+  labels:
+    app: pal-tracker
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: pal-tracker
+          servicePort: 8080
