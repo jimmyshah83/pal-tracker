@@ -27,9 +27,19 @@ spec:
             preStop:
               exec:
                 command: [ "/bin/sleep", "10" ]
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 150
           env:
             - name: WELCOME_MESSAGE
               valueFrom:
                 configMapKeyRef:
                   name: pal-tracker
                   key: welcome.message
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              valueFrom:
+                configMapKeyRef:
+                  name: pal-tracker
+                  key: management.endpoints.web.exposure.include
