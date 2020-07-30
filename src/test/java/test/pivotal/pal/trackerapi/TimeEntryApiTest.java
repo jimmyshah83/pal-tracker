@@ -1,8 +1,8 @@
 package test.pivotal.pal.trackerapi;
 
 import com.jayway.jsonpath.DocumentContext;
-import io.pivotal.pal.tracker.PalTrackerApplication;
-import io.pivotal.pal.tracker.TimeEntry;
+import io.pivotal.pal.k8s.PalK8sApplication;
+import io.pivotal.pal.k8s.TimeEntry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ import static com.jayway.jsonpath.JsonPath.parse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@SpringBootTest(classes = PalTrackerApplication.class, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = PalK8sApplication.class, webEnvironment = RANDOM_PORT)
 public class TimeEntryApiTest {
 
     @Autowired
@@ -67,9 +67,7 @@ public class TimeEntryApiTest {
     public void testRead() throws Exception {
         Long id = createTimeEntry();
 
-
         ResponseEntity<String> readResponse = this.restTemplate.getForEntity("/time-entries/" + id, String.class);
-
 
         assertThat(readResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         DocumentContext readJson = parse(readResponse.getBody());

@@ -1,8 +1,8 @@
 package test.pivotal.pal.tracker;
 
-import io.pivotal.pal.tracker.TimeEntry;
-import io.pivotal.pal.tracker.TimeEntryController;
-import io.pivotal.pal.tracker.TimeEntryRepository;
+import io.pivotal.pal.k8s.TimeEntry;
+import io.pivotal.pal.k8s.TimeEntryController;
+import io.pivotal.pal.k8s.TimeEntryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -39,7 +39,7 @@ public class TimeEntryControllerTest {
             .when(timeEntryRepository)
             .create(any(TimeEntry.class));
 
-        ResponseEntity response = controller.create(timeEntryToCreate);
+        ResponseEntity<TimeEntry> response = controller.create(timeEntryToCreate);
 
         verify(timeEntryRepository).create(timeEntryToCreate);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -99,7 +99,7 @@ public class TimeEntryControllerTest {
             .when(timeEntryRepository)
             .update(eq(timeEntryId), any(TimeEntry.class));
 
-        ResponseEntity response = controller.update(timeEntryId, expected);
+        ResponseEntity<TimeEntry> response = controller.update(timeEntryId, expected);
 
         verify(timeEntryRepository).update(timeEntryId, expected);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -109,11 +109,14 @@ public class TimeEntryControllerTest {
     @Test
     public void testUpdate_NotFound() {
         long nonExistentTimeEntryId = 1L;
+        long projectId = 987L;
+        long userId = 654L;
+        TimeEntry input = new TimeEntry(nonExistentTimeEntryId, projectId, userId, LocalDate.parse("2017-01-07"), 4);
         doReturn(null)
             .when(timeEntryRepository)
             .update(eq(nonExistentTimeEntryId), any(TimeEntry.class));
 
-        ResponseEntity response = controller.update(nonExistentTimeEntryId, new TimeEntry());
+        ResponseEntity<TimeEntry> response = controller.update(nonExistentTimeEntryId, input);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 

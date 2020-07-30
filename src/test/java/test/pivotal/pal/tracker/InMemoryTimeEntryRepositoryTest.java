@@ -1,7 +1,7 @@
 package test.pivotal.pal.tracker;
 
-import io.pivotal.pal.tracker.InMemoryTimeEntryRepository;
-import io.pivotal.pal.tracker.TimeEntry;
+import io.pivotal.pal.k8s.InMemoryTimeEntryRepository;
+import io.pivotal.pal.k8s.TimeEntry;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,6 +11,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InMemoryTimeEntryRepositoryTest {
+
     @Test
     public void create() throws Exception {
         InMemoryTimeEntryRepository repo = new InMemoryTimeEntryRepository();
