@@ -47,3 +47,9 @@ spec:
                 configMapKeyRef:
                   name: pal-tracker
                   key: management.endpoints.web.exposure.include
+            - name: SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE
+              value: "1"
+          #kubectl create secret generic db-credentials --from-literal=SPRING_DATASOURCE_URL='jdbc:postgresql://ruby.db.elephantsql.com:5432/yeybcuij?user=yeybcuij&password=xxxx'
+          envFrom:
+            - secretRef:
+                name: db-credentials
